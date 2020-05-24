@@ -1,0 +1,11 @@
+#加载common公共模块加载common数据源
+spring:
+  profiles:
+    include: common
+  mvc:
+    view.prefix: /pages/
+    view.suffix: .jsp
+
+logging:
+  pattern:
+    console: "%d{MM-dd HH:mm:ss.SSS} %contextName [%thread] %-5level %logger{36} - %msg%n"

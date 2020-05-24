@@ -1,0 +1,11 @@
+#加载common公共模块 依赖 加载对数据源依赖
+spring:
+  profiles:
+    include: common
+  mvc:
+    view.prefix: /pages/
+    view.suffix: .jsp
+
+logging:
+  pattern:
+    console: "%d{HH:mm:ss.SSS} %contextName [%thread] %-5level %logger{36} - %msg%n"
