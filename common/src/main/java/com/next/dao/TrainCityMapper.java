@@ -21,4 +21,6 @@ public interface TrainCityMapper {
     List<TrainCity> getAll();
 
     int countByNameAndId(@Param("name")String name, @Param("trainCityId") Integer trainCityId);
+
+
 }
