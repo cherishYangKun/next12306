@@ -55,6 +55,7 @@ public class TrainNumberDetailService {
                 .money(param.getMoney())
                 .fromCityId(trainStationService.getCityIdByStationId(param.getFromStationId()))
                 .toCityId(trainStationService.getCityIdByStationId(param.getToStationId()))
+                .trainNumberId(param.getTrainNumberId())
                 .stationIndex(detailList.size()).build();
         //保存db
         trainNumberDetailMapper.insertSelective(trainNumberDetail);

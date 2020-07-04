@@ -53,7 +53,7 @@ public class TrainTypeSeatConstant {
         ch2SpecialTable.put(16, 1, 4);
         for (int carriage = 1; carriage < ch2CarriageRowTotal.size(); carriage++) { //遍历车厢
             int order = 0;
-            for (int row = 0; row < ch2CarriageRowTotal.get(carriage); row++) {    //遍历车厢每一排
+            for (int row = 1; row < ch2CarriageRowTotal.get(carriage); row++) {    //遍历车厢每一排
                 int count = 5;
                 if (ch2SpecialTable.contains(carriage, row)) { //是否包含已初始化 特殊座位
                     count = ch2SpecialTable.get(carriage, row);
@@ -93,7 +93,7 @@ public class TrainTypeSeatConstant {
 
         for (int carriage = 1; carriage < ch5CarriageRowTotal.size(); carriage++) { //遍历车厢
             int order = 0;
-            for (int row = 0; row < ch5CarriageRowTotal.get(carriage); row++) {    //遍历车厢的每一排
+            for (int row = 1; row < ch5CarriageRowTotal.get(carriage); row++) {    //遍历车厢的每一排
                 int count = 5;
                 if (ch5SpecialTable.contains(carriage, row)) { //是否包含已初始化 特殊座位
                     count = ch5SpecialTable.get(carriage, row);

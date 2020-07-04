@@ -3,9 +3,10 @@ package com.next.param;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.validator.constraints.NotBlank;
 
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 /**
  * @ClassName : GenerateParam
@@ -22,5 +23,6 @@ public class GenerateParam {
     private Integer trainNumberId;
 
     @NotBlank(message = "必须有出发时间")
+    //@Pattern(regexp = "yyyy-MM-dd HH:mm", message = "出发时间格式不争取")
     private String fromTime;
 }
