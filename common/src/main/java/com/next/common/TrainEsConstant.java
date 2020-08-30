@@ -16,4 +16,8 @@ public interface TrainEsConstant {
 
     //字段
     public static final String COLUMN_TRAIN_NUMBER = "_train_number";
+
+
+    //描述
+    public static final String DESC = "desc";
 }

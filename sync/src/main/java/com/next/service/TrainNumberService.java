@@ -73,6 +73,7 @@ public class TrainNumberService {
         log.info("trainNumber:{} detailList updated redis ", trainNumber.getName());
         //同步到ES key :两车站 所有的车次信息
         saveEs(detailList, trainNumber);
+        log.info("trainNumber:{} detailList updated ES ", trainNumber.getName());
 
 
     }
@@ -95,7 +96,7 @@ public class TrainNumberService {
         } else {
             for (int i = 0; i < detailList.size(); i++) {
                 Integer fromStationId = detailList.get(i).getFromStationId();
-                for (int j = 0; j < detailList.size(); j++) {
+                for (int j = i; j < detailList.size(); j++) {
                     Integer tmpStationId = detailList.get(j).getToStationId();
                     list.add(fromStationId + "_" + tmpStationId);
                 }
@@ -137,7 +138,7 @@ public class TrainNumberService {
 
             }
             String origin = (String) map.get(TrainEsConstant.COLUMN_TRAIN_NUMBER);
-            Set<String> set = Sets.newHashSet(Splitter.on(",").omitEmptyStrings().split(origin));
+            Set<String> set = Sets.newHashSet(Splitter.on(",").trimResults().omitEmptyStrings().split(origin));
             if (!set.contains(trainNumber.getName())) {
                 //update index
                 dataMap.put(TrainEsConstant.COLUMN_TRAIN_NUMBER, origin + "," + trainNumber.getName());

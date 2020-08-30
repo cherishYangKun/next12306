@@ -1,6 +1,7 @@
 package com.next.service;
 
 import com.alibaba.otter.canal.protocol.CanalEntry;
+import com.next.constant.TrainSeatConstant;
 import com.next.dao.TrainNumberMapper;
 import com.next.model.TrainNumber;
 import com.next.model.TrainSeat;
@@ -82,7 +83,7 @@ public class TrainSeatService {
             trainCacheService.hset(
                     trainNumber.getName() + "_" + trainSeat.getTicket(),
                     trainSeat.getCarriageNumber() + "_" + trainSeat.getRowNumber() + "_" + trainSeat.getSeatNumber() + "_" + trainSeat.getFromStationId() + "_" + trainSeat.getToStationId(),
-                    "0"
+                    TrainSeatConstant.NOT_OCCUPY_SEAT
             );
             trainCacheService.hincrby(trainNumber.getName() + "_" + trainSeat.getTicket() + "_Count",
                     trainSeat.getFromStationId() + "_" + trainSeat.getToStationId(),
@@ -92,7 +93,7 @@ public class TrainSeatService {
             trainCacheService.hset(
                     trainNumber.getName() + "_" + trainSeat.getTicket(),
                     trainSeat.getCarriageNumber() + "_" + trainSeat.getRowNumber() + "_" + trainSeat.getSeatNumber() + "_" + trainSeat.getFromStationId() + "_" + trainSeat.getToStationId(),
-                    "1"
+                    TrainSeatConstant.OCCUPY_SEAT
             );
             trainCacheService.hincrby(trainNumber.getName() + "_" + trainSeat.getTicket() + "_Count",
                     trainSeat.getFromStationId() + "_" + trainSeat.getToStationId(),
