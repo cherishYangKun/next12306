@@ -1,5 +1,7 @@
 package com.next.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.util.JSONPObject;
 import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -19,6 +21,7 @@ import com.next.param.PublishTicketParam;
 import com.next.param.TrainSeatSearchParam;
 import com.next.seatDao.TrainSeatMapper;
 import com.next.utils.BeanValidator;
+import com.next.utils.GsonUtil;
 import com.next.utils.JsonMapper;
 import com.next.utils.StringUtils;
 import javafx.util.Pair;
@@ -96,6 +99,8 @@ public class TrainSeatService {
         log.info("generate ticket trainType={}", trainNumber.getType());
         Table<Integer, Integer, Pair<Integer, Integer>> seatTable = TrainTypeSeatConstant.getTable(trainType);
         System.err.println(trainType + "类型车厢 排数 座位内存数据是:" + JsonMapper.obj2String(seatTable.toString()));
+        log.info(trainType + "类型车厢 排数 座位内存数据是:"+ GsonUtil.toJson(seatTable.toString()));
+
         //时间
         //TODO 校验出发时间应该在未来
         ZoneId zoneId = ZoneId.systemDefault();

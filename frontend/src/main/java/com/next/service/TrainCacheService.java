@@ -7,6 +7,7 @@ import redis.clients.jedis.ShardedJedis;
 import redis.clients.jedis.ShardedJedisPool;
 
 import javax.annotation.Resource;
+import java.util.Map;
 
 /**
  * @ClassName : TrainCacheService
@@ -53,11 +54,11 @@ public class TrainCacheService {
     }
 
 
-    public void get(String cacheKey) {
+    public String get(String cacheKey) {
         ShardedJedis shardedJedis = null;
         try {
             shardedJedis = instance();
-            shardedJedis.get(cacheKey);
+            return shardedJedis.get(cacheKey);
         } catch (Exception e) {
             log.error("jedis.get exception ,cacheKey:{}", cacheKey);
             throw e;
@@ -86,6 +87,32 @@ public class TrainCacheService {
             shardedJedis.hincrBy(cacheKey, field, value);
         } catch (Exception e) {
             log.error("jedis,hincrby exception ,cacheKey:{},field:{},value:{}", cacheKey, field, value);
+            throw e;
+        } finally {
+            safeClose(shardedJedis);
+        }
+    }
+
+    public String hget(String cacheKey, String field) {
+        ShardedJedis shardedJedis = null;
+        try {
+            shardedJedis = instance();
+            return shardedJedis.hget(cacheKey, field);
+        } catch (Exception e) {
+            log.error("jedis.hget exception, cacheKey:{},field:{}", cacheKey, field, e);
+            throw e;
+        } finally {
+            safeClose(shardedJedis);
+        }
+    }
+
+    public Map<String, String> hgetAll(String cacheKey) {
+        ShardedJedis shardedJedis = null;
+        try {
+            shardedJedis = instance();
+            return shardedJedis.hgetAll(cacheKey);
+        } catch (Exception e) {
+            log.error("jedis.hget exception, cacheKey:{}", cacheKey, e);
             throw e;
         } finally {
             safeClose(shardedJedis);

@@ -1,9 +1,11 @@
 package com.next;
 
 import com.google.common.collect.Lists;
+import com.next.common.LoginFilter;
 import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import redis.clients.jedis.JedisShardInfo;
 import redis.clients.jedis.ShardedJedisPool;
@@ -25,6 +27,16 @@ public class FrontendApplication {
         GenericObjectPoolConfig config = new GenericObjectPoolConfig();
         ShardedJedisPool shardedJedisPool = new ShardedJedisPool(config, shardInfoList);
         return shardedJedisPool;
+    }
+
+    @Bean
+    public FilterRegistrationBean loginFilter() {
+        FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean();
+        filterRegistrationBean.setFilter(new LoginFilter());
+        filterRegistrationBean.addUrlPatterns("/user/*", "/front/*");
+        filterRegistrationBean.setOrder(1);
+        filterRegistrationBean.setName("loginFilter");
+        return filterRegistrationBean;
     }
 
 }
